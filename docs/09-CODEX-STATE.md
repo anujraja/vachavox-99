@@ -11,19 +11,19 @@
   macOS dictation app
 - Baseline: macOS 26, Apple Silicon
 - Current packet version: 1.0
-- Last updated: `2026-06-19 21:18 IST`
+- Last updated: `2026-06-19 21:43 IST`
 
 ## Current phase
 
-- Active phase: `P2 — Speech feasibility spike`
-- Status: `IN PROGRESS`
-- Next required action: Build the smallest native Swift speech spike against
-  the installed macOS 26 SDK, starting with `SpeechAnalyzer`,
-  `SpeechTranscriber`, and `AssetInventory`, then record locale/asset/offline
-  evidence or an exact blocker.
+- Active phase: `P3 — Sandboxed shortcut and text-delivery spike`
+- Status: `BLOCKED`
+- Next required action: Complete H-09 full Xcode install/selection, then create
+  a minimal sandboxed native app target to test global shortcut, active-app
+  text delivery, secure-field safety, and clipboard fallback.
 - Current blocker: Full Xcode is not selected: `xcodebuild -version` reports
-  active developer directory `/Library/Developer/CommandLineTools`. P2 may
-  continue with command-line Swift spikes; P4 archive work cannot pass.
+  active developer directory `/Library/Developer/CommandLineTools`. P3 requires
+  a sandboxed app target/release candidate and cannot pass with Command Line
+  Tools alone.
 
 ## Gate dashboard
 
@@ -31,8 +31,8 @@
 |---|---|---|---|
 | P0 repository/template bootstrap | PASSED | `docs/qa/QA-LOG.md` P0 row | Public repo created, pushed, packet check passed, placeholders resolved, `main` protection requires CI |
 | P1 source/license/platform discovery | PASSED WITH LIMITATION | `docs/qa/QA-LOG.md` P1 rows | Original source audited; package licences mapped; model asset terms and full Xcode remain unresolved |
-| P2 speech feasibility spike | IN PROGRESS | — | SDK symbols present; runtime speech/asset/offline behaviour unproven |
-| P3 sandboxed hotkey/text-delivery spike | NOT STARTED | — | — |
+| P2 speech feasibility spike | PASSED WITH LIMITATION | `docs/qa/QA-LOG.md` P2 rows | System `en_US` asset installed and local file transcript loop works; live mic/offline/no-network/cancellation tests pending |
+| P3 sandboxed hotkey/text-delivery spike | BLOCKED | `docs/12-HUMAN-ONLY-TASKS.md` H-09 | Full Xcode needed for sandboxed app target/release candidate |
 | P4 native app foundation/archive path | NOT STARTED | — | — |
 | P5 end-to-end dictation core | NOT STARTED | — | — |
 | P6 onboarding/simple settings/cleanup | NOT STARTED | — | — |
@@ -56,6 +56,10 @@ Allowed statuses:
 | 2026-06-19 | `xcodebuild -version` | BLOCKED: active developer directory is CommandLineTools, not full Xcode | macOS 26.5.1 (25F80) |
 | 2026-06-19 | `swift test` in `/tmp/vachavox-original-p1-audit` | BLOCKED: KeyboardShortcuts `#Preview` macro needs Xcode `PreviewsMacros` plugin | Original VachaVox commit `df2c4044514ca98fcde12bb0f153effe6860a95d` |
 | 2026-06-19 | `swift -e 'import Speech; import FoundationModels; ...'` | PASS: printed `SpeechAnalyzer`, `SpeechTranscriber`, `AssetInventory` | Swift 6.3.2, Command Line Tools macOS 26 SDK |
+| 2026-06-19 | `swift build` | PASS: SwiftPM core/spike package builds | Swift 6.3.2, Command Line Tools macOS 26 SDK |
+| 2026-06-19 | `swift run VachaVoxCoreSelfTest` | PASS: mock SpeechEngine boundary self-test passed | Swift 6.3.2 |
+| 2026-06-19 | `swift run SpeechFeasibilitySpike --locale en_US --audio-file /tmp/vachavox-p2-sample.aiff` | PASS WITH LIMITATION: transcript produced from local generated speech | `assetStatus=installed`, transcript included `Hello from Vatchavox...` |
+| 2026-06-19 | `swift test` | BLOCKED: no XCTest/Swift Testing modules under current Command Line Tools package environment | Swift 6.3.2, no full Xcode |
 
 ## Current known limitations
 
@@ -63,6 +67,9 @@ Allowed statuses:
   build, signing, or archive evidence can pass.
 - Original fallback model package source licences are mapped, but model asset
   redistribution/download terms are not verified.
+- P2 has not proven live microphone permission flow, cancellation during
+  recording, or network-isolated offline operation.
+- System speech misrecognized `VachaVox` as `Vatchavox` in one generated sample.
 
 ## Human-only tasks awaiting Anuj
 
@@ -75,9 +82,10 @@ Allowed statuses:
 ## Next-session handoff
 
 ```text
-Read AGENTS.md, this state file, docs/10-EXECUTION-LOOP.md, and the P2 routing
-docs: docs/03-TECHNICAL-DECISIONS.md, docs/11-OFFICIAL-REFERENCES.md,
-docs/07-RISK-REGISTER.md, and docs/qa/README.md. Continue P2 with a minimal
-Swift speech spike using installed SDK symbols. Do not claim offline or
-App Store readiness until runtime evidence exists.
+Read AGENTS.md, this state file, docs/10-EXECUTION-LOOP.md, and the P3 routing
+docs: docs/05-APP-STORE-GATE.md, docs/11-OFFICIAL-REFERENCES.md,
+docs/07-RISK-REGISTER.md, docs/12-HUMAN-ONLY-TASKS.md, and docs/qa/README.md.
+P3 is blocked until H-09 installs/selects full Xcode. Continue only unblocked
+documentation or command-line spike refinements without claiming sandbox,
+archive, live microphone, or offline readiness.
 ```

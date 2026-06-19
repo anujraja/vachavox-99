@@ -27,6 +27,19 @@ uncertainties that need a decision, test, or human action.
 - R-09 reduced: old absolute model paths and technical model UI are explicitly
   excluded from migration.
 
+## P2 evidence updates
+
+- R-01 reduced further but not fully resolved: `SpeechAnalyzer` +
+  `SpeechTranscriber` produced transcripts from local `say`-generated files
+  with `en_US` assets already installed. Live microphone, clean permission
+  prompt, cancellation during capture, and network-isolated offline proof remain
+  open.
+- R-07 remains open: `AssetInventory` reports `installed` for `en_US` and no
+  install attempt was needed, but a network-disabled run has not been completed.
+- R-05 gained a concrete follow-up: system speech misrecognized the product name
+  in one sample, so deterministic cleanup must preserve meaning and any context
+  tuning must be tested before use.
+
 ## Decision protocol
 
 When a risk is resolved:

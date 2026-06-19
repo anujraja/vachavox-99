@@ -81,6 +81,23 @@ The spike must determine:
 
 Do not assume API availability. Capture evidence in QA.
 
+P2 evidence on 2026-06-19:
+- Added a SwiftPM `SpeechFeasibilitySpike` executable and `VachaVoxCore`
+  `SpeechEngine` protocol/mock boundary.
+- `SpeechTranscriber` supports `en_US`; installed locales include `en_US`,
+  `en_IN`, `en_GB`, and other English variants.
+- `AssetInventory.status(forModules:)` reports `installed` for `en_US` and
+  best compatible audio format is 16 kHz mono.
+- Local `say`-generated audio files transcribed through `SpeechAnalyzer` with
+  no asset installation attempt.
+- Unsupported locale `zz_ZZ` fails with a clear error.
+
+Limitations:
+- Live microphone loop, user permission prompt behaviour, and network-isolated
+  offline proof are not complete until H-04/H-09 test conditions are available.
+- Recognition quality needs product-name/context tuning; one sample heard
+  “VachaVox” as “Vatchavox.”
+
 ### Local fallback
 
 The old VachaVox has local Parakeet/Whisper-family capability. It can be
