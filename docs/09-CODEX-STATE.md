@@ -60,6 +60,7 @@ Allowed statuses:
 | 2026-06-19 | `swift run VachaVoxCoreSelfTest` | PASS: mock SpeechEngine boundary self-test passed | Swift 6.3.2 |
 | 2026-06-19 | `swift run SpeechFeasibilitySpike --locale en_US --audio-file /tmp/vachavox-p2-sample.aiff` | PASS WITH LIMITATION: transcript produced from local generated speech | `assetStatus=installed`, transcript included `Hello from Vatchavox...` |
 | 2026-06-19 | `swift test` | BLOCKED: no XCTest/Swift Testing modules under current Command Line Tools package environment | Swift 6.3.2, no full Xcode |
+| 2026-06-19 | `gh run watch 27835246223 --repo anujraja/vachavox-99 --exit-status` | PASS: GitHub Actions job `ci` passed in 29s on `macos-26` | Commit `939e9e3` |
 
 ## Current known limitations
 
