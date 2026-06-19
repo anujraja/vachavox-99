@@ -28,5 +28,6 @@ Add every task with:
 | H-06 | Legal/financial agreements | P8 | Complete Apple agreements, tax, banking as required | NOT STARTED |
 | H-07 | Public pages | P8 | Publish support URL, privacy policy URL, marketing page, support email | NOT STARTED |
 | H-08 | Final upload/submission | P8 | Upload/select archive, verify metadata, and submit for review | NOT STARTED |
+| H-09 | Full Xcode install/selection | P1/P4 | Install current stable Xcode for macOS 26 from Apple, open it once to finish components/licence prompts, then run `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`; paste back `xcodebuild -version` | BLOCKING APP BUILD/ARCHIVE |
 
 No task is complete until `Status` is changed and evidence is recorded.

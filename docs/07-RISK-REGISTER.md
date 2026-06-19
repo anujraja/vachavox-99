@@ -15,6 +15,17 @@ uncertainties that need a decision, test, or human action.
 | R-08 | Open source + App Store paid distribution creates license/expectation confusion | Medium | Explain source vs signed store convenience; use license only after audit | README/legal doc | Codex / Anuj |
 | R-09 | Source migration brings old user-specific paths/technical UI debt | Medium | Strict migration table and no direct UI copying | Architecture/code review | Codex |
 | R-10 | Marketing could overclaim against Apple/competitors | Medium | Evidence-only claims; no competitor naming | Release copy review | Codex / Anuj |
+| R-11 | Full Xcode is not installed/selected on this Mac | Critical | Continue only command-line SDK spikes; do not claim app build/archive readiness until Xcode is installed and selected | `xcodebuild -version` succeeds with full Xcode and P4 archive evidence exists | Anuj / Codex |
+
+## P1 evidence updates
+
+- R-01 reduced but not resolved: the installed macOS 26 Command Line Tools SDK
+  exposes `SpeechAnalyzer`, `SpeechTranscriber`, and `AssetInventory`, but P2
+  must prove runtime asset availability, locale support, and offline behaviour.
+- R-03 remains open: package source licences are identified, but Parakeet and
+  WhisperKit model asset redistribution/download terms are not verified.
+- R-09 reduced: old absolute model paths and technical model UI are explicitly
+  excluded from migration.
 
 ## Decision protocol
 

@@ -4,6 +4,8 @@
 
 Read-only source repository:
 - `https://github.com/anujraja/VachaVox`
+- audited at commit `df2c4044514ca98fcde12bb0f153effe6860a95d` on
+  2026-06-19 from `/tmp/vachavox-original-p1-audit`;
 - public SwiftPM macOS app;
 - package baseline declares macOS 14;
 - dependencies include FluidAudio, WhisperKit, and KeyboardShortcuts;
@@ -34,6 +36,42 @@ It is not the desired product UX or App Store architecture.
 | Debug/model diagnostics UI | Do not migrate | Internal logs/QA only |
 | Old license wording (MIT + Commons Clause) | Do not copy blindly | New repo needs independent legal/attribution decision |
 | Old scripts/packages | Reference only | Replace with Xcode archive and current automation |
+
+## P1 source audit results
+
+Reusable implementation material:
+- `AudioCaptureService`: AVAudioEngine input tap, mono sample extraction, input
+  level reporting, and immediate tap removal on stop.
+- `PermissionsService`: microphone authorization and Accessibility trust checks.
+- `HotKeyService`: push-to-talk state tracking and key-up/key-down session
+  semantics, subject to P3 sandbox review.
+- `TextOutputService`: target snapshot, restore attempt, copy fallback, and
+  clipboard preservation concept. Secure-field handling is not proven.
+- State-machine tests around readiness, rapid output fallback, overlay
+  positioning, model readiness, and settings persistence.
+
+Quarantined fallback material:
+- `TranscriptionEngineRouter`, `FluidAudioParakeetTranscriptionEngine`, and
+  `WhisperKitTranscriptionEngine` may inform a local fallback only after P2/P3
+  evidence and model licence review.
+- `ModelCatalog`, `ModelStore`, and `ModelDownloadService` must not be copied
+  directly because they expose technical engine names, manual model folders,
+  Hugging Face URLs, and old path assumptions.
+
+Do not migrate:
+- the model browser/settings sidebar, file transcription workflow, diagnostics
+  panes, technical engine labels, manual download instructions, benchmark/debug
+  surfaces, old screenshots/copy, or the old MIT plus Commons Clause licensing
+  text.
+
+Detected source inconsistencies:
+- README and docs describe `~/vachavox/models`, while current source defaults to
+  `/Users/macbookpro/local_ai_models/voice_models`.
+- Original build/test fails under Command Line Tools because
+  KeyboardShortcuts 2.4.0 uses SwiftUI preview macros that need Xcode's
+  `PreviewsMacros` plugin.
+- Original entitlements plist is empty, so Mac App Store sandbox requirements
+  remain unproven for paste/hotkey delivery.
 
 ## Important source inconsistencies to remove
 
