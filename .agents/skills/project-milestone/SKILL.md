@@ -18,7 +18,7 @@ any approved program work.
 ## Rules
 
 - Work on one milestone only.
-- Branch from fresh `{{DEFAULT_BRANCH}}`.
+- Branch from fresh `main`.
 - Keep unrelated findings out of the implementation; record them in
   `docs/qa/KNOWN-ISSUES.md` or `docs/futurework/ROADMAP.md`.
 - Do not merge your own production PR unless explicitly instructed.
@@ -27,7 +27,7 @@ any approved program work.
 ## Procedure
 
 1. Orient: read the inputs and identify the exact milestone scope.
-2. Branch: `git fetch origin && git switch -c feat/<slug> origin/{{DEFAULT_BRANCH}}`.
+2. Branch: `git fetch origin && git switch -c feat/<slug> origin/main`.
 3. Implement the smallest complete version that satisfies the milestone.
 4. Update or add tests for changed behavior.
 5. Update docs in the same branch: changelog, architecture, QA, known issues,

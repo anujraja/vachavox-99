@@ -1,6 +1,6 @@
 # Contributing
 
-{{PROJECT_NAME}} uses a trunk-based workflow: `{{DEFAULT_BRANCH}}` is the
+VachaVox uses a trunk-based workflow: `main` is the
 mainline, work happens on short-lived branches, and changes land through a PR
 that passes CI and review.
 
@@ -9,14 +9,14 @@ starting.
 
 ```bash
 git fetch origin
-git switch -c feat/<slug> origin/{{DEFAULT_BRANCH}}
-{{TYPECHECK_COMMAND}}
-{{LINT_COMMAND}}
-{{TEST_COMMAND}}
-{{BUILD_COMMAND}}
+git switch -c feat/<slug> origin/main
+swift test or xcodebuild test after project creation
+No linter configured yet
+swift test or xcodebuild test after project creation
+xcodebuild build after project creation
 git push -u origin feat/<slug>
 ```
 
-Do not push directly to `{{DEFAULT_BRANCH}}`. Agents stop after opening a green,
+Do not push directly to `main`. Agents stop after opening a green,
 QA-ready PR unless explicitly instructed otherwise.
 

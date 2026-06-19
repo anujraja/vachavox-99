@@ -2,4 +2,4 @@
 
 | Timestamp | Phase/Gate | Environment | Command or steps | Expected | Actual | Result | Evidence / follow-up |
 |---|---|---|---|---|---|---|---|
-| NOT STARTED | — | — | — | — | — | — | — |
+| 2026-06-19 20:55 IST | P0 repository/template bootstrap | macOS 26.5.1 (25F80); git 2.50.1; GitHub CLI authenticated as `anujraja`; `xcodebuild` unavailable because active developer directory is CommandLineTools | `scripts/bootstrap-repository.sh`; `scripts/check-control-packet.sh`; `gh repo view anujraja/vachavox-99 --json nameWithOwner,visibility,url,defaultBranchRef`; placeholder scan with `rg`; `scripts/setup/enable-main-protection.sh` | Public repo exists, packet files are preserved, user-visible placeholders are resolved, branch workflow exists, and `main` protection requires CI | Created and pushed `https://github.com/anujraja/vachavox-99`; control packet check passed; no user-facing template placeholders remained; `main` branch protection requires `ci` | PASS | Commit `d59dade` bootstrapped the repo before doc updates. Follow-up: P1 must resolve full Xcode availability before SDK/build claims. |

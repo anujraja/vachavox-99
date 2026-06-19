@@ -20,7 +20,7 @@ Add every task with:
 
 | ID | Task | When needed | Exact action | Status |
 |---|---|---|---|---|
-| H-01 | GitHub auth | P0 | Run `gh auth login` if CLI auth is unavailable; authorize access to `anujraja` | NOT STARTED |
+| H-01 | GitHub auth | P0 | Run `gh auth login` if CLI auth is unavailable; authorize access to `anujraja` | COMPLETE — verified `gh auth status` for `anujraja` on 2026-06-19 |
 | H-02 | Apple Developer Program/team | P4/P8 | Confirm active team and Xcode signing access | NOT STARTED |
 | H-03 | Bundle ID | P4/P8 | Confirm the final unique bundle identifier selected in docs/DECISIONS.md | NOT STARTED |
 | H-04 | macOS privacy prompts | P2/P3/P7 | Approve/deny microphone and Accessibility in test scenarios as requested | NOT STARTED |
