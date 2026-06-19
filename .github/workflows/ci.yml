@@ -1,0 +1,57 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: ["{{DEFAULT_BRANCH}}"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect Node project
+        id: node
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.node.outputs.present == 'true'
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        if: steps.node.outputs.present == 'true'
+        run: npm ci
+
+      - name: Typecheck
+        if: steps.node.outputs.present == 'true'
+        run: npm run typecheck --if-present
+
+      - name: Lint
+        if: steps.node.outputs.present == 'true'
+        run: npm run lint --if-present
+
+      - name: Test
+        if: steps.node.outputs.present == 'true'
+        run: npm test --if-present
+
+      - name: Build
+        if: steps.node.outputs.present == 'true'
+        run: npm run build --if-present
+
+      - name: Non-Node project placeholder
+        if: steps.node.outputs.present != 'true'
+        run: |
+          echo "No package.json found. Replace .github/workflows/ci.yml with checks for this stack."
